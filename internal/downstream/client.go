@@ -3,6 +3,7 @@ package downstream
 import (
 	"context"
 	"fmt"
+	"io"
 	"net"
 	"time"
 
@@ -12,7 +13,7 @@ import (
 )
 
 var (
-	ErrFrameRead       = fmt.Errorf("failed to read the whole frame")
+	ErrFrameRead       = fmt.Errorf("failed to read the frame")
 	ErrPayloadRead     = fmt.Errorf("failed to read the payload")
 	ErrUpstreamFailure = fmt.Errorf("failed to get a response from upstream")
 	ErrWrite           = fmt.Errorf("failed to write the response")
@@ -53,7 +54,7 @@ func (c *Client) Serve() error {
 			return err
 		}
 
-		if n < 8 {
+		if n != 8 {
 			return ErrFrameRead
 		}
 
@@ -67,15 +68,9 @@ func (c *Client) Serve() error {
 			return err
 		}
 
-		n, err = c.stream.Read(buffer[:msgFrame.MessageLength])
+		n, err = io.ReadFull(c.stream, buffer[:msgFrame.MessageLength])
 		if err != nil {
 			return err
-		}
-
-		// Is this conversion correct?
-		// a u32 should fit in i64
-		if n != int(msgFrame.MessageLength) {
-			return ErrPayloadRead
 		}
 
 		c.queuer.Enqueue(buffer, msgFrame.MessageLength, upstreamDone)
