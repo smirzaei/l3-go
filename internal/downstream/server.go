@@ -10,7 +10,7 @@ import (
 )
 
 type UpstreamQueuer interface {
-	Enqueue(buffer []byte, msgLen uint, done chan<- error)
+	Enqueue(buffer []byte, msgLen uint32, done chan<- int)
 }
 
 type Server struct {

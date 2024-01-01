@@ -7,7 +7,7 @@ import (
 
 type Request struct {
 	buffer []byte
-	msgLen uint
+	msgLen uint32
 	done   chan<- error
 }
 
@@ -27,6 +27,6 @@ func NewPool(logger zap.Logger, conf *config.Config) *Pool {
 	return &p
 }
 
-func (p *Pool) Enqueue(buffer []byte, msgLen uint, done chan<- error) {
+func (p *Pool) Enqueue(buffer []byte, msgLen uint32, done chan<- error) {
 	panic("not implemented")
 }
