@@ -10,11 +10,11 @@ import (
 )
 
 type Daemon struct {
-	l zap.Logger
+	l *zap.Logger
 	c *config.Config
 }
 
-func NewDaemon(logger zap.Logger, conf *config.Config) *Daemon {
+func NewDaemon(logger *zap.Logger, conf *config.Config) *Daemon {
 	d := Daemon{
 		l: logger,
 		c: conf,

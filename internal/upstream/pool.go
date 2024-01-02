@@ -15,12 +15,12 @@ type Request struct {
 }
 
 type Pool struct {
-	l     zap.Logger
+	l     *zap.Logger
 	c     *config.Config
 	queue chan Request
 }
 
-func NewPool(logger zap.Logger, conf *config.Config) *Pool {
+func NewPool(logger *zap.Logger, conf *config.Config) *Pool {
 	p := Pool{
 		l:     logger,
 		c:     conf,

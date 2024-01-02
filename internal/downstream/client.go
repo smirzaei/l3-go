@@ -20,14 +20,14 @@ var (
 )
 
 type Client struct {
-	l      zap.Logger
+	l      *zap.Logger
 	c      *config.Service
 	ctx    context.Context
 	queuer UpstreamQueuer
 	stream net.Conn
 }
 
-func newClient(ctx context.Context, logger zap.Logger, conf *config.Service, queuer UpstreamQueuer, stream net.Conn) *Client {
+func newClient(ctx context.Context, logger *zap.Logger, conf *config.Service, queuer UpstreamQueuer, stream net.Conn) *Client {
 	c := Client{
 		l:      logger,
 		c:      conf,

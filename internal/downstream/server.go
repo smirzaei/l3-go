@@ -14,12 +14,12 @@ type UpstreamQueuer interface {
 }
 
 type Server struct {
-	l      zap.Logger
+	l      *zap.Logger
 	c      *config.Service
 	queuer UpstreamQueuer
 }
 
-func NewServer(logger zap.Logger, conf *config.Service, queuer UpstreamQueuer) *Server {
+func NewServer(logger *zap.Logger, conf *config.Service, queuer UpstreamQueuer) *Server {
 	s := Server{
 		l:      logger,
 		c:      conf,

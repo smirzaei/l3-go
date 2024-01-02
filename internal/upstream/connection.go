@@ -17,11 +17,11 @@ var (
 )
 
 type Connection struct {
-	l      zap.Logger
+	l      *zap.Logger
 	stream net.Conn
 }
 
-func NewConnection(logger zap.Logger, host string) (*Connection, error) {
+func NewConnection(logger *zap.Logger, host string) (*Connection, error) {
 	stream, err := net.Dial("tcp", host)
 	if err != nil {
 		return nil, err
