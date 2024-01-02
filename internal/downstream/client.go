@@ -27,7 +27,7 @@ type Client struct {
 	stream net.Conn
 }
 
-func NewClient(ctx context.Context, logger zap.Logger, conf *config.Service, queuer UpstreamQueuer, stream net.Conn) *Client {
+func newClient(ctx context.Context, logger zap.Logger, conf *config.Service, queuer UpstreamQueuer, stream net.Conn) *Client {
 	c := Client{
 		l:      logger,
 		c:      conf,

@@ -48,7 +48,7 @@ func (s *Server) Listen(ctx context.Context) error {
 
 func (s *Server) handleConnection(conn net.Conn) {
 	// TODO: Handle the graceful shutdown of the clients using the context below
-	client := NewClient(context.TODO(), s.l, s.c, s.queuer, conn)
+	client := newClient(context.TODO(), s.l, s.c, s.queuer, conn)
 	err := client.Serve()
 	if err != nil {
 		s.l.Warn("downstream connection error", zap.Error(err))
